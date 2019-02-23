@@ -11,7 +11,7 @@ export default class SpGithubWebinar extends React.Component<ISpGithubWebinarPro
           <div className={ styles.row }>
             <div className={ styles.column }>
               <span className={ styles.title }>Welcome to webinar on SPFx and GitHub with Azure Devops!</span>
-              <p className={ styles.subTitle }>Customize SharePoint experiences using Web Parts.</p>
+              <p className={ styles.subTitle }>Integrte with Github and Azure devops</p>
               <p className={ styles.description }>{escape(this.props.description)}</p>
               <a href="https://aka.ms/spfx" className={ styles.button }>
                 <span className={ styles.label }>Learn more</span>
