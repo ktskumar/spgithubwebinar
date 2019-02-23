@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
-import { Version } from '@microsoft/sp-core-library';
+import { Version, Environment, EnvironmentType } from '@microsoft/sp-core-library';
 import {
   BaseClientSideWebPart,
   IPropertyPaneConfiguration,
@@ -9,6 +9,9 @@ import {
 
 import * as strings from 'SpGithubWebinarWebPartStrings';
 import SpGithubWebinar from './components/SpGithubWebinar';
+import MockupDataProvider from './dataproviders/MockupDataProvider';
+import SharePointDataProvider from './dataproviders/SharePointDataProvider';
+import { IDataProvider } from './dataproviders/IDataProvider';
 import { ISpGithubWebinarProps } from './components/ISpGithubWebinarProps';
 
 export interface ISpGithubWebinarWebPartProps {
@@ -16,17 +19,26 @@ export interface ISpGithubWebinarWebPartProps {
 }
 
 export default class SpGithubWebinarWebPart extends BaseClientSideWebPart<ISpGithubWebinarWebPartProps> {
-
-  public render(): void {
-    const element: React.ReactElement<ISpGithubWebinarProps > = React.createElement(
-      SpGithubWebinar,
-      {
-        description: this.properties.description
-      }
-    );
-
-    ReactDom.render(element, this.domElement);
+  private _dataProvider: IDataProvider;
+  protected onInit(): Promise<void>{
+    if(Environment.type === EnvironmentType.Local){  
+      this._dataProvider = new MockupDataProvider();          
+    }else{  
+      this._dataProvider = new SharePointDataProvider(this.context);  
+    }  
+    return super.onInit(); 
   }
+    public render(): void {
+      
+      const element: React.ReactElement<ISpGithubWebinarProps > = React.createElement(
+        SpGithubWebinar,
+        {
+          provider: this._dataProvider
+        }
+      );
+  
+      ReactDom.render(element, this.domElement);
+    }
 
   protected onDispose(): void {
     ReactDom.unmountComponentAtNode(this.domElement);

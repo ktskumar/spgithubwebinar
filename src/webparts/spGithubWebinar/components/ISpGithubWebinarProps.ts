@@ -1,3 +1,5 @@
+import { IDataProvider } from "../dataproviders/IDataProvider";
+
 export interface ISpGithubWebinarProps {
-  description: string;
+  provider:IDataProvider
 }
