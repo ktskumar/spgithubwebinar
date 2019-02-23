@@ -1,0 +1,11 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "isCreatingSolution": true,
+    "environment": "spo",
+    "version": "1.7.1",
+    "libraryName": "spgithubwebinar-webpart",
+    "libraryId": "80cc80bb-968e-40a0-9038-54cbdd3e7e7c",
+    "packageManager": "npm",
+    "componentType": "webpart"
+  }
+}
